@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Car Rental Service</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Mapbox CSS -->
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet'/>
+    <!-- Custom styles for better visibility -->
+    <style>
+        .office-card {
+            margin-bottom: 20px;
+        }
+
+        .nav-link, .nav-link:hover {
+            color: white;
+        }
+
+        #map {
+            height: 400px;
+        }
+
+        .navbar-brand, .navbar-brand:hover {
+            color: white;
+        }
+
+        .card-title {
+            color: red;
+        }
+
+        .search-area {
+            display: flex;
+            justify-content: space-around;
+            align-items: end;
+            flex-wrap: wrap;
+        }
+
+        .search-button {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        input[type="date"] {
+            padding-right: 10px;
+            text-indent: -1px;
+        }
+
+        .row {
+            padding-top: 25px;
+            padding-bottom: 5px
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg" style="background-color: black;">
+    <a class="navbar-brand" href="#">KON-RENTAL</a>
+    <div class="navbar-nav ml-auto">
+        <a class="nav-link" href="{{ url_for('login') }}">Member Login</a>
+    </div>
+</nav>
+
+<!-- Form for Pickup/Return Selection -->
+<section class="search-area">
+    <form action="{{ url_for('search') }}" method="GET" class="row">
+        <div class="col-md-3">
+            <label for="pickupOffice">Pickup Office</label>
+            <select id="pickupOffice" class="form-control" name="pickup_office">
+                <option value="0">Izmir Central Office</option>
+                <option value="1">Izmir Alsancak Office</option>
+                <option value="2">Izmir Bornova Office</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label for="pickupDate">Pickup Date</label>
+            <input type="date" class="form-control" id="pickupDate" name="pickup_date" required>
+        </div>
+        <div class="col-md-2">
+            <label for="pickupTime">Pickup Time</label>
+            <input type="time" class="form-control" id="pickupTime" name="pickup_time" required>
+        </div>
+        <div class="col-md-2">
+            <label for="returnDate">Return Date</label>
+            <input type="date" class="form-control" id="returnDate" name="return_date" required>
+        </div>
+        <div class="col-md-2">
+            <label for="returnTime">Return Time</label>
+            <input type="time" class="form-control" id="returnTime" name="return_time" required>
+        </div>
+        <div class="search-button">
+            <button type="submit" class="btn btn-danger">Search</button>
+        </div>
+    </form>
+</section>
+
+<!-- Offices and Map Section -->
+<section class="container mt-3">
+    <div class="row">
+        <!-- Office Information -->
+        <div class="col-md-6">
+            <h3>Office Locations</h3>
+            {% for office in offices %}
+                <div class="card office-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ office.Name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ office.City }}, {{ office.Country }}</h6>
+                        <p class="card-text">
+                            Address: {{ office.Address }}<br>
+                            Phone: (232) 444 44 44<br>
+                            Working Days: {{ office.WorkingDays }}<br>
+                            Working Hours: {{ office.WorkingHours }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Map -->
+        <div class="col-md-6">
+            <h3>Find Us On The Map</h3>
+            <div id="map"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Mapbox JavaScript -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoia29uZWdlIiwiYSI6ImNscXozbmZpYTAxNXYyanRhcXN2ZzdhaDgifQ.imLhp5IIXE4LzqV0zgf4MQ'; // Replace with your Mapbox access token
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [27.1284, 38.4189], // Replace with a suitable default center
+        zoom: 10
+    });
+
+    {% for office in offices %}
+        var marker = new mapboxgl.Marker()
+            .setLngLat([{{ office.Longitude }}, {{ office.Latitude }}])
+            .setPopup(new mapboxgl.Popup({offset: 25})
+                .setHTML('<strong>' + '{{ office.Name }}' + '</strong><br>' +
+                    '{{ office.Address }}<br>' +
+                    '{{ office.City }}, {{ office.Country }}<br>' +
+                    'Phone: (232) 444 44 44<br>' +
+                    'Working Days: ' + '{{ office.WorkingDays }}' + '<br>' +
+                    'Working Hours: ' + '{{ office.WorkingHours }}'))
+            .addTo(map);
+    {% endfor %}
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Check if the user is logged in
+    // This will be set server-side by Flask depending on your user's session state.
+    var userLoggedIn = {{ 'true' if current_user.is_authenticated else 'false' }};
+
+    // If the user is not logged in, request the location and update the map
+    if (!userLoggedIn) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            // Update the Mapbox map with the user's current position
+            map.flyTo({
+                center: [position.coords.longitude, position.coords.latitude],
+                essential: true // this animation is considered essential with respect to prefers-reduced-motion
+            });
+        }, function (error) {
+            console.warn(`ERROR(${error.code}): ${error.message}`);
+        }, {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        });
+    }
+</script>
+</body>
+</html>

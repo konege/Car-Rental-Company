@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        .navbar-brand:hover {
+            color: white
+        }
+
+        .navbar-brand {
+            color: white
+        }
+    </style>
+</head>
+<body>
+<body>
+<nav class="navbar navbar-expand-lg" style="background-color: black;">
+    <a class="navbar-brand" href="/">KON-RENTAL</a>
+</nav>
+<br>
+<div class="container h-100 d-flex justify-content-center align-items-center">
+    <div class="card w-50">
+        <div class="card-body">
+            <h3 class="card-title text-center">Register for an Account</h3>
+            <form action="{{ url_for('register') }}" method="post">
+                <div class="form-group">
+                    <label for="userEmailReg">Email:</label>
+                    <input type="email" class="form-control" id="userEmailReg" name="email" required
+                           placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPasswordReg">Password:</label>
+                    <input type="password" class="form-control" id="userPasswordReg" name="password" required
+                           placeholder="Enter password" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPasswordConfirmReg">Confirm Password:</label>
+                    <input type="password" class="form-control" id="userPasswordConfirmReg" name="confirm_password"
+                           required placeholder="Confirm password" required>
+                </div>
+                <div class="form-group">
+                    <label for="countrySelect">Country:</label>
+                    <select class="form-control" id="countrySelect" name="country" required>
+                        <option value="Turkey">Turkey</option>
+                        <!-- Add other countries as needed -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="citySelect">City:</label>
+                    <select class="form-control" id="citySelect" name="city" required>
+                        <option value="Izmir">Izmir</option>
+                        <option value="Ankara">Ankara</option>
+                        <option value="Istanbul">Istanbul</option>
+                        <!-- Add other cities as needed -->
+                    </select>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <a href="/login" class="btn btn-dark">Back to Login</a>
+                    <button type="submit" class="btn btn-danger">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>

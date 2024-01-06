@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Car Rental Service</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-img-top {
+            width: 240px; /* maintains the aspect ratio */
+            height: 150px; /* or any size you prefer */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .nav-link, .nav-link:hover, .navbar-brand, .navbar-brand:hover {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg" style="background-color: black;">
+    <a class="navbar-brand" href="home.html">KON-RENTAL</a>
+</nav>
+
+<!-- Search Info Bar -->
+<div class="bg-light py-3 px-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <!-- This will be dynamically set based on user selection -->
+            <span>Pick-up - Return: <strong>{{ pickup_date }} - {{ pickup_time }}</strong> > <strong>{{ return_date }} - {{ return_time }}</strong> </span>
+            <br>
+            <span>Office: <strong>{{ pickup_office }}</strong></span>
+        </div>
+    </div>
+    <strong></strong>
+</div>
+
+<!-- Filter Bar -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <form class="form-inline mb-4" action="{{ url_for('filter_vehicles') }}" method="GET">
+                <!-- Include hidden fields for the pickup and return info -->
+                <input type="hidden" name="pickup_date" value="{{ pickup_date }}">
+                <input type="hidden" name="pickup_time" value="{{ pickup_time }}">
+                <input type="hidden" name="return_date" value="{{ return_date }}">
+                <input type="hidden" name="return_time" value="{{ return_time }}">
+                <input type="hidden" name="pickup_office" value="{{ pickup_office }}">
+
+                <label class="mr-2" for="filterMake">Make:</label>
+                <select id="filterMake" class="custom-select mr-3" name="make">
+                    <!-- Dynamic options for car make -->
+                    <option selected>Toyota</option>
+                    <option selected>Honda</option>
+                    <option selected>Ford</option>
+                    <option selected>BMW</option>
+                    <option selected>Audi</option>
+                    <option selected>Mercedes</option>
+                    <option selected>Tesla</option>
+                    <option selected>Nissan</option>
+                    <option selected>Chevrolet</option>
+                    <option selected>Make</option>
+                </select>
+
+                <label class="mr-2" for="filterPrice">Price:</label>
+                <select id="filterPrice" class="custom-select mr-3" name="price">
+                    <!-- Dynamic options for car price -->
+                    <option value="ascending">Price: Low to High</option>
+                    <option value="descending">Price: High to Low</option>
+                    <option selected>Price</option>
+
+                </select>
+
+                <label class="mr-2" for="filterTransmission">Transmission:</label>
+                <select id="filterTransmission" class="custom-select mr-3" name="transmission">
+                    <!-- Dynamic options for transmission type -->
+                    <option selected>Automatic</option>
+                    <option selected>Manual</option>
+                    <option selected>Transmission</option>
+                </select>
+
+                <button type="submit" class="btn btn-dark">Filter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Vehicle Cards -->
+    <div class="row">
+        <!-- Iterate over each vehicle and display its details -->
+        {% for vehicle in vehicles %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{{ url_for('static', filename='images/' + vehicle.Image) }}" class="card-img-top"
+                         alt="{{ vehicle.Make }} {{ vehicle.Model }}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ vehicle.Make }} {{ vehicle.Model }}</h5>
+                        <p class="card-text">
+                            <strong>Transmission:</strong> {{ vehicle.Transmission }}<br>
+                            <strong>Deposit: </strong>${{ vehicle.Deposit }}<br>
+                            <strong>Mileage: </strong>{{ vehicle.Mileage }} miles<br>
+                            <strong>Age: </strong>{{ vehicle.Age }} years<br>
+                            <strong>Cost of Rental: </strong>${{ vehicle.Deposit * 10 }}
+                            <!-- Cost is 10 times the deposit -->
+                        </p>
+                        <a href="#" class="btn btn-danger mt-auto">Pay Now</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
