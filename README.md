@@ -1,4 +1,4 @@
-# KonRent Car Rental Service
+# KonRent Car Rental Web Application
 
 KonRent is a car rental web application, providing an easy and efficient way for users to rent cars from various offices. The application offers functionalities like searching for cars, filtering options, and user authentication including Google Sign-In.
 It built with Flask, providing a seamless interface for users to rent vehicles across various locations in Izmir.
