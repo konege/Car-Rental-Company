@@ -36,3 +36,10 @@ Your `templates` directory contains HTML files used for rendering web pages:
 Controller logic in Flask is typically handled by view functions defined in the main application file, which, in your case, is `app.py`. This file likely contains routes that process user requests and return responses, serving as the Controller component.
 
 This project structure adheres to the MVC architectural pattern, separating concerns and promoting modularity in your web application.
+
+## Deployment
+- I successfully deployed the web app on Azure Web Services, focusing on setting up the required configurations and environment variables to ensure smooth operation and compatibility with the Azure hosting environment.
+- Code deployed at:
+[carrentalkonege.azurewebsites.net](carrentalkonege.azurewebsites.net)
+(The site takes some time to open. I do not know why.)
+
