@@ -14,7 +14,7 @@ It built with Flask, providing a seamless interface for users to rent vehicles a
 ## Technologies Used
 - **Backend**: Flask (Python)
 - **Frontend**: HTML, CSS, Bootstrap
-- **Database**: SQLite
+- **Database**: SQLAlchemy
 - **APIs**: Google Maps, Google OAuth 2.0
 
 ## MVC (Model-View-Controller) Architecture in Flask
