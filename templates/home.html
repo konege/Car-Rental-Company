@@ -62,18 +62,24 @@
 <nav class="navbar navbar-expand-lg" style="background-color: black;">
     <a class="navbar-brand" href="#">KON-RENTAL</a>
     <div class="navbar-nav ml-auto">
-        <a class="nav-link" href="{{ url_for('login') }}">Member Login</a>
+        {% if email_prefix %}
+            <p style="text-align: center; margin-bottom: 0; margin-top: -10px; color: white"><strong>Welcome,</strong>
+                <strong
+                        style="color: red">{{ email_prefix }}</strong></p>
+        {% else %}
+            <a class="nav-link" href="{{ url_for('login') }}">Member Login</a>
+        {% endif %}
     </div>
 </nav>
-
 <!-- Form for Pickup/Return Selection -->
+<br>
 <section class="search-area">
     <form action="{{ url_for('search') }}" method="GET" class="row">
         <div class="col-md-3">
             <label for="pickupOffice">Pickup Office</label>
             <select id="pickupOffice" class="form-control" name="pickup_office">
                 <option value="0">Izmir Central Office</option>
-                <option value="1">Izmir Alsancak Office</option>
+                <option value="1">Izmir Karsiyaka Office</option>
                 <option value="2">Izmir Bornova Office</option>
             </select>
         </div>
@@ -108,13 +114,13 @@
             {% for office in offices %}
                 <div class="card office-card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ office.Name }}</h5>
+                        <h5 class="card-title"><strong>{{ office.Name }}</strong></h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ office.City }}, {{ office.Country }}</h6>
                         <p class="card-text">
-                            Address: {{ office.Address }}<br>
-                            Phone: (232) 444 44 44<br>
-                            Working Days: {{ office.WorkingDays }}<br>
-                            Working Hours: {{ office.WorkingHours }}
+                            <strong>Address: </strong>{{ office.Address }}<br>
+                            <strong>Phone: </strong>(232) 444 44 44<br>
+                            <strong>Working Days: </strong>{{ office.WorkingDays }}<br>
+                            <strong>Working Hours: </strong>{{ office.WorkingHours }}
                         </p>
                     </div>
                 </div>
