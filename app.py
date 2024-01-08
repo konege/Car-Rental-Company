@@ -11,8 +11,8 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 
-app.config['GOOGLE_CLIENT_ID'] = '1005445236445-65d6gh91l93gkrrl0qnhnj543haghrn3.apps.googleusercontent.com'
-app.config['GOOGLE_CLIENT_SECRET'] = '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'
+app.config['GOOGLE_CLIENT_ID'] = 'YOUR_GOOGLE_CLIENT_ID'
+app.config['GOOGLE_CLIENT_SECRET'] = 'YOUR_GOOGLE_CLIENT_SECRET'
 
 oauth = OAuth(app)
 google = oauth.register(
@@ -56,7 +56,7 @@ initial_vehicles = [
     # Vehicles for the third office
     [
         {'Make': 'Tesla', 'Model': 'Model 3', 'Transmission': 'Automatic', 'Mileage': 10000, 'Age': 1, 'Deposit': 300.00, 'Image': 'tesla-model-3.PNG'},
-        {'Make': 'Nissan', 'Model': 'Leaf', 'Transmission': 'Automatic', 'Mileage': 12000, 'Age': 1, 'Deposit': 150.00, 'Image': 'nissan-leaf.PNG'},
+        {'Make': 'Nissan', 'Model': 'Leaf', 'Transmission': 'Manual', 'Mileage': 12000, 'Age': 1, 'Deposit': 150.00, 'Image': 'nissan-leaf.PNG'},
         {'Make': 'Chevrolet', 'Model': 'Bolt', 'Transmission': 'Automatic', 'Mileage': 9000, 'Age': 1, 'Deposit': 160.00, 'Image': 'chevrolet-bolt.PNG'}
     ]
 ]
