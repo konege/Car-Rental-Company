@@ -41,3 +41,6 @@ This project structure adheres to the MVC architectural pattern, separating conc
 - I successfully deployed the web app on Azure Web Services, focusing on setting up the required configurations and environment variables to ensure smooth operation and compatibility with the Azure hosting environment.
 - Code deployed at: [http://carrentkonege.azurewebsites.net](http://carrentkonege.azurewebsites.net)  (The site takes some time to open. I do not know why.)
 
+## Video
+- Also you can watch a short video from [here]([http://carrentkonege.azurewebsites.net](https://drive.google.com/file/d/1lnWEtBx1I7yVgctVvN8OZTGjAOpKUcxn/view)) about the project. 
+
