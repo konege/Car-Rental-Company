@@ -42,5 +42,5 @@ This project structure adheres to the MVC architectural pattern, separating conc
 - Code deployed at: [http://carrentkonege.azurewebsites.net](http://carrentkonege.azurewebsites.net)  (The site takes some time to open. I do not know why.)
 
 ## Video
-- Also you can watch a short video from [here]([http://carrentkonege.azurewebsites.net](https://drive.google.com/file/d/1lnWEtBx1I7yVgctVvN8OZTGjAOpKUcxn/view)) about the project. 
+- Also you can watch a short video from [here](https://drive.google.com/file/d/1lnWEtBx1I7yVgctVvN8OZTGjAOpKUcxn/view) about the project. 
 
